@@ -1,7 +1,7 @@
+//题目：删除排序数组中重复的元素
 //给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
 //
 //不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
-//
 //
 //
 //来源：力扣（LeetCode）
@@ -11,22 +11,51 @@
 #include<stdio.h>
 #include<windows.h>
 
+//没有借助新数组，原数组直接转化
+//int removeDuplicates(int* nums, int numsSize){
+//	if (nums == NULL || numsSize == 0){
+//		return 0;
+//	}
+//	int prev = 0, cur = prev + 1; //排序数组，相邻元素比较
+//	while (cur < numsSize){
+//		if (nums[prev] == nums[cur]){
+//			cur++;
+//		}
+//		else{//不相等时，将prev给dst
+//			prev++;
+//			nums[prev] = nums[cur];
+//			cur++;
+//		}
+//	}
+//	//nums[dst++] = nums[prev];//此时先加加，后赋值
+//	//nums[dst]=nums[prev]
+//	//dst++;
+//	//prev++;
+//	return prev + 1;
+//}
+
 int removeDuplicates(int* nums, int numsSize){
 	if (nums == NULL || numsSize == 0){
 		return 0;
 	}
-	int i = 0, j = i + 1;
-	while (j < numsSize){
-		if (nums[i] == nums[j]){
-			j++;
+	int prev = 0, cur = 1, dst = 0; //排序数组，相邻元素比较
+	while (cur < numsSize){
+		if (nums[prev] != nums[cur]){
+			nums[dst] = nums[prev];
+			prev++;
+			cur++;
+			dst++;
 		}
 		else{
-			i++;
-			nums[i] = nums[j];
-			j++;
+			prev++;
+			cur++;
 		}
 	}
-	return i + 1;
+	//nums[dst++] = nums[prev];//此时先加加，后赋值
+	nums[dst] = nums[prev];
+	dst++;
+	prev++;
+	return dst;
 }
 
 int main()
