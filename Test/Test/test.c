@@ -58,7 +58,7 @@ int* addToArrayForm(int* A, int ASize, int K, int* returnSize)
 	// 
 	if (nextNum == 1){
 		retArr[reti] = 1;
-		++reti;
+		//++reti;
 	}
 	
 	//逆置
@@ -118,7 +118,7 @@ int main()
 	arr = p;//将返回值给数组中存储
 
 	printf("%d\n", returnSize);
-	for (int i = 0; i < returnSize+1; i++)
+	for (int i = 0; i < returnSize; i++)
 	{
 		printf("%d ", arr[i]);
 	}
