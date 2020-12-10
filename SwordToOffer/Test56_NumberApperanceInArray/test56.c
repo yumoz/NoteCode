@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include<windows.h>
 
+//此代码来自
 int singleNumber(int* nums, int numsSize){
 	int result = 0;
 	for (int i = 0; i < 32; i++){//遍历32位
