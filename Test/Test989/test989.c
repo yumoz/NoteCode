@@ -8,7 +8,7 @@
 
 #include<stdio.h>
 #include<windows.h>
-
+#include<math.h>
 /*
 解题思路：此题是用一个数的数组形式 + 一个整数， 返回和的数组形式。
 模拟加法进行逐位相加， 从低位向高位相加，最后整体逆置，得到最终结果
@@ -83,7 +83,7 @@ void reverse(int* nums, int begin, int end)
 //	return addRet;
 //}
 
-// malloc
+// 此部分在检测最高位溢出时，会存在问题
 int* addToArrayForm(int* A, int ASize, int K, int* returnSize)
 {
 	int kSize = 0;
@@ -128,7 +128,7 @@ int* addToArrayForm(int* A, int ASize, int K, int* returnSize)
 	// 
 	if (nextNum == 1){
 		retArr[reti] = 1;
-		//++reti;
+		++reti;
 	}
 	
 	//逆置
@@ -148,12 +148,37 @@ int* addToArrayForm(int* A, int ASize, int K, int* returnSize)
 }
 
 
+////另一种解法
+//int* addToArrayForm(int* A, int ASize, int K, int* returnSize){
+//	int len_K, len;
+//	int * res;
+//
+//	if (K == 0)
+//	{
+//		*returnSize = ASize;
+//		return A;
+//	}
+//
+//	len_K = (int)log10(K) + 1;//数字长度   若K=100 ，len_K=2+1;
+//	*returnSize = (ASize > len_K) ? ASize + 1 : len_K + 1;//找最大长度开辟空间
+//	res = (int *)malloc(*returnSize * sizeof(int));
+//	len = *returnSize;
+//	while (len - 1 >= 1 || K > 0)
+//	{
+//		if (ASize > 0) K += A[--ASize];
+//		res[--len] = K % 10;
+//		K /= 10;
+//	}
+//
+//	*returnSize -= len;
+//	return res + len;
+//}
 
 int main()
 {
-	int array[] = { 1, 2, 0, 0 };
+	int array[] = { 9, 2, 0, 0 };
 	int len = sizeof(array) / sizeof(array[0]);
-	int key = 34;
+	int key = 1034;
 	int returnSize=0;
 	int *p = addToArrayForm(array, len, key, &returnSize);
 	int *arr = (int *)malloc(sizeof(int)*(returnSize));//开辟returnSize大小的数组 用来存储返回的数组

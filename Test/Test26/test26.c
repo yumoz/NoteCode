@@ -63,7 +63,7 @@ int main()
 	int array[] = { 1, 2, 2, 3, 3, 4, 5 };//注意此题要求此数组为排序数组
 	int len = sizeof(array) / sizeof(array[0]);
 	int ret = removeDuplicates(array, len);
-	printf("%d\n", ret);
+	printf("移除重复元素后，还有%d个元素\n", ret);
 	system("pause");
 	return 0;
 }

@@ -48,7 +48,7 @@ int main()
 {
 	int array[] = {0,1,2,1,0};
 	int len = sizeof(array) / sizeof(array[0]);
-	printf("%d\n", removeElement(array, len, 3));
+	printf("数组中还有%d个元素\n", removeElement(array, len, 2));// 移除 2 所剩的数组中还有几个元素
 	system("pause");
 	return 0;
 }
