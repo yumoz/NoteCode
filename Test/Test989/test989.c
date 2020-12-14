@@ -83,7 +83,7 @@ void reverse(int* nums, int begin, int end)
 //	return addRet;
 //}
 
-// 此部分在检测最高位溢出时，会存在问题
+// 
 int* addToArrayForm(int* A, int ASize, int K, int* returnSize)
 {
 	int kSize = 0;
