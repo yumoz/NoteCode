@@ -1,28 +1,44 @@
-#include <stdio.h>
 
+/*
+剑指offer：22
+题目：返回链表中倒数第K个节点
+题目描述：输入一个链表，输出该链表中倒数第K个节点。
+
+例如： 123456   返回倒数第3个节点 答案为4 5 6
+*/
+#include <stdio.h>
 #include<windows.h>
 
-
-
 // Definition for singly-linked list.*/
-struct ListNode 
+struct ListNode
 {
-     int val;
-    struct ListNode *next;
+	int val;
+	struct ListNode *next;
 };
 
-/**
-* Note: The returned array must be malloced, assume caller calls free().
-*/
-int* reversePrint(struct ListNode* head, int* returnSize)
+struct ListNode*getKthFromEnd(struct ListNode*head, int k)
 {
-	if (head == NULL){
-		*returnSize = 0;
-		return malloc(sizeof(int) * 10000);
+	if (head == NULL || k == 0){//判断链表是否为空，倒数节点是否为空
+		return 0;
 	}
-	int *ans = reversePrint(head->next, returnSize);
-	ans[(*returnSize)++] = head->val;
-	return ans;
+
+	struct ListNode* pNode = head;//定义一个指向链表头的指针
+	//遍历
+	for (int i = 0; i < k - 1; ++i){
+		if (pNode->next != NULL)//判断指针指向是否为空
+		{
+			pNode = pNode->next;//指向下一位
+		}
+		else{//链表中只有一个值，下一位指向为空时
+			return NULL;
+		}
+	}
+
+	while (pNode->next != NULL){
+		pNode = pNode->next;
+		head = head->next;
+	}
+	return head;
 }
 
 //打印链表
@@ -34,7 +50,6 @@ void ListPrint(struct ListNode *head)
 		cur = cur->next;
 	}
 }
-
 
 void test()
 {
@@ -66,21 +81,20 @@ void test()
 	printf("\n");
 
 	//测试函数
-	printf("逆置链表：");
+	int Key = 1;
+	printf("倒数第%d链表：",Key);
 	int ret = 0;
-	int  * res = reversePrint(n1,&ret);
+	struct ListNode  * res = getKthFromEnd(n1, Key);
 	//打印逆置后的链表
-	for (int i = 0; i < ret; ++i){
-		printf("%3d ", res[i]);
-	}
-	
+	ListPrint(res);
+
 	printf("\n");
 
 }
 int main()
 {
 	test();
-	printf("hello Sword to offer\n");
+	printf("hello Sword to offer 22\n");
 	system("pause");
 	return 0;
 }
