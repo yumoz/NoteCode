@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>算法 动态规划 - Yu</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u7b97\u6cd5 \u52a8\u6001\u89c4\u5212";
+        var mkdocs_page_input_path = "\u9898\u76ee\u603b\u7ed3\\\u7b97\u6cd5-\u52a8\u6001\u89c4\u5212.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Yu
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">LeetCode</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../LeetCode/138%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/">138 复制带随机指针的链表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../LeetCode/141%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/">环形链表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../LeetCode/142%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A82/">142 环形链表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../LeetCode/147%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">147 对链表进行插入排序</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../LeetCode/explain/">介绍</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Mkdocs入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mkdocs%E5%85%A5%E9%97%A8/">MkLorum</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mkdocs%E5%85%A5%E9%97%A8/About/">第二个Markdown</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mkdocs%E5%85%A5%E9%97%A8/test/">仓库说明</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">帮助文档制作</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3%E5%88%B6%E4%BD%9C/01_Doxygen%E5%85%A5%E9%97%A8/">01 Doxygen入门</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3%E5%88%B6%E4%BD%9C/02_Doxygen%E8%AF%AD%E6%B3%95/">02 Doxygen语法</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">软件打包</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../%E8%BD%AF%E4%BB%B6%E6%89%93%E5%8C%85/%E8%BD%AF%E4%BB%B6%E6%89%93%E5%8C%85/">如何使用软件打包工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">题目总结</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../readme/">导航</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">算法 动态规划</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串相关练习</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../%E7%AE%97%E6%B3%95-%E6%95%B0%E7%BB%84/">题目-两个数组的交集</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >BinaryTree</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../BinaryTree/094%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../BinaryTree/100%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../BinaryTree/110%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/">思路</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../BinaryTree/145%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E7%BB%AD%E9%81%8D%E5%8E%86/">分析</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../BinaryTree/572%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%A0%91%E7%9A%84%E5%AD%90%E6%A0%91/">图解:</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../BinaryTree/newcodertest/">Newcodertest</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >List</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../List/021%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../List/138%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../List/141%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../List/160%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../List/203%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0/">题目</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../List/206%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">题目</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../List/876%E9%93%BE%E8%A1%A8%E4%B8%AD%E9%97%B4%E8%8A%82%E7%82%B9/">题目</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../List/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/">code</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Queue</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../Queue/020%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Queue/027%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/">027删除有序数组中的重复项</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Queue/088%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84/">题目</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Queue/225%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Queue/232%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Queue/622%E8%AE%BE%E8%AE%A1%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Queue/66%E5%8A%A0%E4%B8%80/">66加一</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Queue/989%E6%95%B0%E7%BB%84%E5%BD%A2%E5%BC%8F%E7%9A%84%E6%95%B4%E6%95%B0%E5%8A%A0%E6%B3%95/">989数组形式的整数加法</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >String</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../string/043%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/">code</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >剑指offer</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/">剑指offer</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/03%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E5%87%BA%E7%8E%B0%E7%9A%84%E6%95%B0%E5%AD%97/">03数组中重复出现的数字</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/067%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%95%B4%E6%95%B0/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/06%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/">06从尾到头打印链表</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/22%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/">code</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/68-II%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/">68 II 二叉树的最近公共祖先</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/JZ03%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/">题目</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/README.en/">剑指offer</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/">题目</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87offer%E4%B9%A0%E9%A2%98%E6%80%BB%E7%BB%93/">剑指offer习题总结</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%89%91%E6%8C%87offer/%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/">题目</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >垃圾箱</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%9E%83%E5%9C%BE%E7%AE%B1/17%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/">17电话号码的组合</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%9E%83%E5%9C%BE%E7%AE%B1/LeetCode102%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/">二叉树的层序遍历</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%9E%83%E5%9C%BE%E7%AE%B1/LeetCode144%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/">二叉树的前序遍历</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%9E%83%E5%9C%BE%E7%AE%B1/LeetCode145%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/">二叉树的后序遍历</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%9E%83%E5%9C%BE%E7%AE%B1/LeetCode236%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/">二叉树的最近公共祖先</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%9E%83%E5%9C%BE%E7%AE%B1/LeetCode606%E6%A0%B9%E6%8D%AE%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%9B%E5%BB%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/">根据二叉树创建字符串</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%9E%83%E5%9C%BE%E7%AE%B1/LeetCode94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">LeetCode94二叉树的中序遍历</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E5%9E%83%E5%9C%BE%E7%AE%B1/%E6%9A%91%E5%81%87%E4%BD%9C%E4%B8%9A%E7%AC%94%E8%AE%B0/">一、第一天</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >练习 BackUp</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../%E7%BB%83%E4%B9%A0-BackUp/01Pre-Post/">per-post</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E7%BB%83%E4%B9%A0-BackUp/17%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/">17电话号码的组合</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E7%BB%83%E4%B9%A0-BackUp/LeetCode102%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/">二叉树的层序遍历</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E7%BB%83%E4%B9%A0-BackUp/LeetCode144%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/">二叉树的层序遍历</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E7%BB%83%E4%B9%A0-BackUp/LeetCode145%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/">二叉树的后序遍历</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E7%BB%83%E4%B9%A0-BackUp/LeetCode236%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/">题目</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E7%BB%83%E4%B9%A0-BackUp/LeetCode606%E6%A0%B9%E6%8D%AE%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%9B%E5%BB%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/">题目</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../%E7%BB%83%E4%B9%A0-BackUp/LeetCode94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">二叉树的层序遍历</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Yu</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">题目总结</li>
+      <li class="breadcrumb-item active">算法 动态规划</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p>动态规划算法总结（dynamic-programming）</p>
+<p>动态规划，常常适用于有重叠子问题和最优子结构性质的问题，并且记录所有子问题的结果，因此动态规划方法所耗时间往往远少于朴素解法。动态规划有自底向上和自顶向下两种解决问题的方式。<strong>自顶向下即记忆化递归</strong>，<strong>自底向上就是递推</strong>。使用动态规划解决的问题有个明显的特点，一旦一个子问题的求解得到结果，以后的计算过程就不会修改它，这样的特点叫做无后效性，求解问题的过程形成了一张有向无环图。动态规划只解决每个子问题一次，具有天然剪枝的功能，从而减少计算量。</p>
+<h1 id="_1">打家劫舍</h1>
+<p>思考过程：</p>
+<p><img alt="image-20211112085759286" src="../ImageSave/image-20211112085759286.png" /></p>
+<pre><code class="language-c++">class Solution {
+public:
+    int rob(vector&lt;int&gt;&amp; nums) {
+        if(nums.empty()) return 0;
+        int len = nums.size();
+        if(len == 1) return nums[0];
+        int first = nums[0];
+        int second = max(nums[0], nums[1]);
+        for(int i = 2; i &lt; nums.size(); i++){
+           int temp = second;
+           second = max(first + nums[i], second);
+           first = temp;
+        }
+        return second;
+    }
+};
+</code></pre>
+<h1 id="2">打家窃舍2</h1>
+<p>此时，所有房子构成一个圆圈，即第一家和最后一家房子连接着。请分析。</p>
+<p>分析：</p>
+<ol>
+<li>只有一家，只能投一家；</li>
+<li>只有两家，只能偷取最高的一家。</li>
+<li>大于两家，分区偷窃范围。假设len = nums.size() ;</li>
+<li>若偷了第一家，则最后一家不能偷窃。偷窃范围为：[0,len-2]</li>
+<li>若偷了最后一家，则第一家不能偷窃。偷窃范围为：[1, len-1]</li>
+<li>选择步骤三种最大金额数返回。</li>
+</ol>
+<p>情况分析：</p>
+<p><img src="ImageSave/image-20211112092351051.png" alt="image-20211112092351051" style="zoom:80%;" /></p>
+<p>参考代码：</p>
+<pre><code class="language-c++">class Solution {
+public:
+    int rRange(vector&lt;int&gt;&amp; nums, int start, int end)
+    {
+        int first = nums[start];
+        int second = max(nums[start], nums[start+1]);
+        for(int i = start + 2; i &lt;= end; i++){
+            int temp = second;
+            second = max(first + nums[i], second);
+            first = temp;
+        }
+        return second;
+    }
+    int rob(vector&lt;int&gt;&amp; nums) {
+        int len = nums.size();
+        if(len == 1) return nums[0];
+        else if(len == 2) return max(nums[0], nums[1]);
+        return max(rRange(nums, 0, len-2), rRange(nums, 1, len - 1));
+    }
+};
+</code></pre>
+<h1 id="_2">删除并获得点数</h1>
+<p><a href="https://leetcode-cn.com/problems/delete-and-earn/">LeetCode740.删除并获得点数</a>。</p>
+<p>在nums数组基础构造一个临时数组temp，这个数组是以元素的值来做下标，下标对应的元素是原来的元素的个数。</p>
+<p>如：</p>
+<blockquote>
+<p>nums = [2,2,3,3,3,4];</p>
+<p>temp = [0,0,2,3,1];//表示nums中0和1各0个，2有2个，3有3个，4有1个</p>
+</blockquote>
+<p>问题转化为打家窃舍问题，</p>
+<blockquote>
+<p>打家窃舍最优结构：dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);</p>
+<p>此问题最优结构：  dp[i] = Math.max(dp[i - 1], dp[i - 2] + i * all[i]);</p>
+</blockquote>
+<pre><code class="language-c++">class Solution {
+public:
+    int deleteAndEarn(vector&lt;int&gt;&amp; nums) {
+        if(nums.size() &lt; 1) return 0;
+        int maxVal = 0;
+        for(auto e: nums){
+            maxVal = max(maxVal, e);//确定数组长度
+        }
+        vector&lt;int&gt; count(maxVal+1), dp(maxVal+1);
+        for(auto val: nums){
+            count[val]++; //temp数组
+        }
+        dp[1] = count[1];
+        for(int i = 2; i &lt;= maxVal; i++){
+            dp[i] = max(dp[i-1], dp[i-2] + count[i]*i);
+        }
+        return dp[maxVal];
+    }
+};
+</code></pre>
+<h1 id="_3">跳跃游戏</h1>
+<p><a href="https://leetcode-cn.com/problems/jump-game/">LeetCode55.跳跃游戏</a></p>
+<p>分析：</p>
+<blockquote>
+<ol>
+<li>找出最远可以到达的最右位置</li>
+<li>如果最远可到达最右位置超过nums数组最后一个元素 返回true，否则返回false；</li>
+</ol>
+</blockquote>
+<pre><code class="language-c++">class Solution {
+public:
+    bool canJump(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        int rightMax = 0;
+        for(int i = 0; i &lt; n; i++){
+            if(i &lt;= rightMax){
+                rightMax = max(rightMax, i+nums[i]);//记录最远到达
+                if(rightMax &gt;= n-1)
+                    return true;
+            }
+        }
+        return false;
+    }
+};
+</code></pre>
+<h1 id="2_1">跳跃游戏2</h1>
+<p>目标：使用最少跳跃次数到达数组的最后一个位置</p>
+<h2 id="_4">反向查找</h2>
+<p>考虑最后一步跳跃前所在位置，通过该位置可以跳跃到最后一个位置。如果有多个位置都能跳跃到最后一个位置，那么应该选择距离最后一个位置最远的位置，即对应下标最小的位置。所以，从左向右遍历数组，选择第一个满足要求的位置。确定最后一步跳跃前所在位置之后，贪心的选择倒数第二步跳跃前所在位置，依次类推，直到找到最开始位置。</p>
+<pre><code class="language-java">class Solution {
+    public int jump(int[] nums) {
+        int position = nums.length - 1;
+        int steps = 0;
+        while (position &gt; 0) {
+            for (int i = 0; i &lt; position; i++) {
+                if (i + nums[i] &gt;= position) {
+                    position = i;
+                    steps++;
+                    break;
+                }
+            }
+        }
+        return steps;
+    }
+}
+
+作者：LeetCode-Solution
+链接：https://leetcode-cn.com/problems/jump-game-ii/solution/tiao-yue-you-xi-ii-by-leetcode-solution/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+</code></pre>
+<h2 id="_5">正向查找</h2>
+<p>正向查找，每次查找最远可到达位置</p>
+<pre><code>class Solution {
+public:
+    int jump(vector&lt;int&gt;&amp; nums) {
+        int maxPos = 0, len = nums.size(), end = 0, sumStep = 0;
+        for(int i = 0; i &lt; len -1; i++){
+            if(maxPos &gt;= i){
+                maxPos = max(maxPos, i + nums[i]);
+                if(i == end){
+                    end = maxPos;
+                    ++sumStep;
+                }
+            }
+        }
+        return sumStep;
+    }
+};
+</code></pre>
+<p>时间复杂度：$O(n)$，n为数组长度。</p>
+<p>空间复杂度：$O(1)$。</p>
+<h1 id="27-11-10">27-11-10</h1>
+<p>组长：</p>
+<p>进程组组长：命令行上启动的多个进程，协同完成某种任务，其中第一个被创建出来的进程，称之为组长进程。</p>
+<p>守护进程本质也是孤儿进程。</p>
+<p>会话首进程有权限打开终端。</p>
+<p>ps axj | head -1 &amp;&amp; ps axj | grep 文件名 </p>
+<p>killall 进程名称  杀掉进程 </p>
+<p>ls /dev/null  -al字符文件、设备；所有设备往这个文件写，等于丢弃这个文件，通常用来进行屏蔽，drop输入输出信息。</p>
+<pre><code class="language-c">//void deamon(int nochidr , int noclose)
+int main()
+{
+    umask(0);// sys/type.h sys/stat.h
+    if(fork()&gt;0){
+        exit(0);
+    }
+    signal(SIGCHLD, SIG_IGN);
+    setsid();//将非组长进程设为新的独立会话
+    //if语句，可以选择不做，防御性编程
+    if(fork()&gt;0){
+        //father
+        exit(0);
+    }
+
+    //可选择选项
+    chdir(&quot;/&quot;);//修改当前路径为根目录，无法打开终端设备
+
+    if(nochld == 0)
+    {
+        //可选择选项
+        chdir(&quot;/&quot;);//修改当前路径为根目录，无法打开终端设备
+    }
+
+    //可选择选项
+    close(0);
+    int fd = open(&quot;dev/null&quot;, O_RDWR);
+    if(fd &lt; 0){return;}
+    dup2(fd, 1);
+    dup2(fd, 2);
+
+    if(noclose == 0)
+    {
+        close(0);
+        int fd = open(&quot;dev/null&quot;, O_RDWR);
+        if(fd &lt; 0){return;}
+        dup2(fd, 1);
+        dup2(fd, 2);
+    }
+
+    //走到此处，孙子进程执行
+    while(1){
+    }
+    return 0;
+}
+int main()
+{
+    my_daemon(1,1);
+    while(1){
+        sleep(1);
+    }
+}
+</code></pre>
+<p>ls /proc/进程编号/fd </p>
+<p>PGRP标记进程组组长编号</p>
+<p>父进程就是组长，</p>
+<h1 id="_6">线程</h1>
+<p>线程在进程内部运行，线程在进程地址空间内运行。</p>
+<p>in Linux，站在CPU的角度，能否识别task_struct是进程还是线程？？</p>
+<p>什么是进程？（站在内核角度）</p>
+<p>​   承担分配系统资源的基本单位 称之为进程。 进程分配task_struct 和地址空间；</p>
+<p><strong>之前对进程的理解</strong>，所有进程都是只有一个task_struct ，该进程内部只有一个执行流。【单执行流进程】</p>
+<p>站在CPU的角度，in Linux，站在CPU的角度，能否识别task_struct是进程还是线程？？【不能，也不需要识别，因为，CPU只关心一个一个的独立执行流。在CPU看来，task_struct &lt;= OS原理上面的进程控制块的】</p>
+<p>在linux下，并不存在真正的多线程，其实是用进程模拟的线程。怎么理解？当线程足够多时，操作系统需要管理线程。</p>
+<p>Linux中，所有执行流，都叫做轻量级进程。</p>
+<pre><code>NAME
+       pthread_create - create a new thread
+
+SYNOPSIS
+       #include &lt;pthread.h&gt;
+
+       int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+                          void *(*start_routine) (void *), void *arg);
+
+       Compile and link with -pthread.
+
+DESCRIPTION
+       The  pthread_create()  function starts a new thread in the calling process.  The new
+       thread starts execution by invoking start_routine(); arg is passed as the sole argu‐
+       ment of start_routine().
+
+       pthread_create() 函数在调用进程中启动一个新线程。 新线程通过调用 start_routine() 开始执行； arg 作为        start_routine() 的唯一参数传递。 
+
+       The new thread terminates in one of the following ways:
+
+       * It  calls  pthread_exit(3),  specifying  an exit status value that is available to
+         another thread in the same process that calls pthread_join(3).
+
+       * It returns from start_routine().  This is equivalent  to  calling  pthread_exit(3)
+         with the value supplied in the return statement.
+
+       * It is canceled (see pthread_cancel(3)).
+
+       * Any  of  the  threads  in the process calls exit(3), or the main thread performs a
+         return from main().  This causes the termination of all threads in the process.
+
+</code></pre>
+<p>从系统理解char *str = "hello yumoz"; str[1] = "o";出错原因。因为物理内存到栈的映射关系出现问题。</p>
+<p>计算密集型：执行流的大部分任务，主要以计算为主：加密解密、排序</p>
+<p>IO密集型：执行流的大部分任务，是以IO为主，刷磁盘，访问数据库，访问网络。</p>
+<p>作业笔记</p>
+<h1 id="_7">一、第一天</h1>
+<h2 id="1">1 字母变换</h2>
+<p>大写变小写、小写变大写 : 字符 ^= 32;</p>
+<p>大写变小写、小写变小写 : 字符 |= 32;</p>
+<p>小写变大写、大写变大写 : 字符 &amp;= -33;</p>
+<p>例如：</p>
+<blockquote>
+<p>ASCII码表中大写的A是65，小写的a是97，它们的差是32</p>
+<p>65 | 32 转为二进制（按8位来算）可以得到 0100 0001 | 0010 0000 = 0110 0001 = 97 = a</p>
+</blockquote>
+<h1 id="day2">二、day2</h1>
+<h2 id="_8">搜索插入位置</h2>
+<pre><code class="language-c">int searchInsert(int* nums, int numsSize, int target){
+    int left = 0;
+    int right = numsSize - 1;
+    int ans = numsSize;
+
+    while(left &lt;= right)
+    {
+        int mid = ((right - left) &gt;&gt; 1)  + left;
+        if(target &lt;= nums[mid])
+        {
+            ans = mid;
+            right = mid - 1;
+        }
+        else
+        {
+            left = mid + 1;
+        }
+    }    
+    return ans;
+}
+</code></pre>
+<h1 id="day3">三、day3</h1>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../readme/" class="btn btn-neutral float-left" title="导航"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="btn btn-neutral float-right" title="字符串相关练习">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../readme/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
